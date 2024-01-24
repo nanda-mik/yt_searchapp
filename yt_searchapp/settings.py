@@ -47,6 +47,8 @@ LOCAL_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'constance',
+    'constance.backends.database',
     'django_celery_results',
     'django.contrib.postgres',
     'django_celery_beat',
@@ -156,7 +158,7 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BEAT_SCHEDULE = {
     'fetch-and-store-videos': {
         'task': 'searchapp.tasks.fetch_and_store_yt_videos',
-        'schedule': crontab(minute="*")
+        'schedule': crontab(minute="*/10") # Scheduling the task at every 10th minute.
     }
 }
 
@@ -169,4 +171,21 @@ CACHES = {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         },
     }
+}
+
+
+# Constance configurations
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+CONSTANCE_DATABASE_CACHE_BACKEND = 'default'
+CONSTANCE_CONFIG = {
+    'QUERY_STRING': (
+        'cricket',
+        'Query string for youtube search.',
+        str
+    ),
+    'MAX_RESULTS': (
+        25,
+        'Max number of records to fetch.',
+        int
+    )
 }

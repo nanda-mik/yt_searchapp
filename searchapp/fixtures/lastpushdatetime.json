@@ -1,0 +1,10 @@
+[
+    {
+        "model": "searchapp.lastpushdatetime",
+        "pk": 1,
+        "fields": {
+            "video_success_dt": "2023-12-01T14:16:00Z",
+            "id": 1
+        }
+    }
+]

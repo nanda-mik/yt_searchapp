@@ -27,6 +27,7 @@ class Youtube:
         """
         
         """
+        import pdb;pdb.set_trace()
         try:
             search_result = self.yt_client.search().list(
                 q=query_str, 
@@ -38,7 +39,7 @@ class Youtube:
                 maxResults = max_results
             ).execute()
         except Exception as exc:
-            print("Failed to query!")
+            print("Failed to query!: {exc}")
 
         results = search_result.get("items", [])
         return results

@@ -14,6 +14,8 @@ class VideoStore(models.Model):
         help_text="Title of the video."
     )
     description = models.TextField(
+        blank=True,
+        null=True,
         help_text="Description of the video."
     )
     publish_datetime = models.DateTimeField(
