@@ -17,3 +17,13 @@ class VideoStoreSerializer(serializers.ModelSerializer):
             'publishedAt',
             'thumbnails'
         )
+
+class VideoStoreListSerializer(VideoStoreSerializer):
+    """
+    Serializer to list videos.
+    """
+
+    class Meta(VideoStoreSerializer.Meta):
+        fields = VideoStoreSerializer.Meta.fields + (
+            '_created_on',
+        )

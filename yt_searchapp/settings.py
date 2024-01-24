@@ -52,7 +52,8 @@ THIRD_PARTY_APPS = [
     'django_celery_results',
     'django.contrib.postgres',
     'django_celery_beat',
-    'psqlextra'
+    'psqlextra',
+    'rest_framework'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
@@ -188,4 +189,14 @@ CONSTANCE_CONFIG = {
         'Max number of records to fetch.',
         int
     )
+}
+
+
+# rest framework configurations
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
