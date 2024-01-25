@@ -1,7 +1,7 @@
 # YT Search
 
 ## Basic Installation
-* Asmming you have a python & pip installed on your device. If not, please install it.
+* Asumming you have python & pip installed on your device. If not, please install it.
 * After doing above, install virtualenv and create a virtual environment.
     ```bash
         $ pip install virtualenv
@@ -11,6 +11,7 @@
     ```bash
         $ git clone https://github.com/nanda-mik/yt_searchapp.git
     ```
+
 
 * #### Steps to follow(To run the application in local)
     1. cd into the cloned repo:
@@ -54,7 +55,7 @@
             python manage.py createsuperuser
         ```
     9. Create Youtube creds: 
-        Refer below *API's & functionalities* section to know how to create creds in youtube store.
+        * Refer below *API's & functionalities* section to know how to create creds in youtube store.
     8. To run server locally using the below command:
         ```bash
             $ python manage.py runserver
@@ -72,25 +73,27 @@
             $ python manage.py test
         ```
 
+
 * #### Running the app in Docker
     To run the app, you need to perform two steps:
 
     1. #### Build the image: 
     This is done using the build command, which uses the Dockerfile you just created. To build the image, run the command below:
     ```bash
-    docker build . -t docker-django-v0.0
+    docker build . -t docker-django-v1.0
     ```
     This command should be executed in the directory where the Docker file lives. The -t flag tags the image so that it can be referenced when you want to run the container.
  
     2. #### Run the image:
     This is done using the docker run command. This will convert the built image into a running container. To run the app, execute the below command:
     ```bash
-        docker run docker-django-v0.0
+        docker run docker-django-v1.0
     ```
     You can proceed to view your app in the browser at localhost:8000.
 
     Follow this to dockerize a simple django app:
     https://blog.logrocket.com/dockerizing-django-app/
+
 
 * ### Modules and api's
     1. #### Models:
@@ -118,4 +121,4 @@
         This will search all videos whose title/description which contains hello.
         It also supports partial search.
 
-* Hope this documentation will help you to run this project!!
+* Hope this documentation will help you to run the project!!
