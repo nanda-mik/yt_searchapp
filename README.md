@@ -65,14 +65,19 @@
 * #### Running the app in Docker
     To run the app, you need to perform two steps:
 
-    1. Build the image:
+    1. #### Build the image: 
+    This is done using the build command, which uses the Dockerfile you just created. To build the image, run the command below:
+    ```bash
+    docker build . -t docker-django-v0.0
     ```
-        This is done using the build command, which uses the Dockerfile you just created. To build the image, run the command below:docker build . -t docker-django-v0.0.This command should be executed in the directory where the Docker file lives. The -t flag tags the image so that it can be referenced when you want to run the container.
-    ``
-    2. Run the image:
-    ```
-        This is done using the docker run command. This will convert the built image into a running container. To run the app, execute the below command:docker run docker-django-v0.0
+    This command should be executed in the directory where the Docker file lives. The -t flag tags the image so that it can be referenced when you want to run the container.
+ 
+    2. #### Run the image:
+    This is done using the docker run command. This will convert the built image into a running container. To run the app, execute the below command:
+    ```bash
+        docker run docker-django-v0.0
     ```
     You can proceed to view your app in the browser at localhost:8000.
+
     Follow this to dockerize a simple django app:
     https://blog.logrocket.com/dockerizing-django-app/
