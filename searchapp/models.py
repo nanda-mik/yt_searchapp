@@ -57,6 +57,8 @@ class LastPushDatetime(models.Model):
 class YoutubeCreds(models.Model):
     """
     Model to store youtube API key and credentials.
+    **BONUS POINT**
+    Addition of multiple keys and using based on is_exhausted.
     """
 
     name = models.CharField(
