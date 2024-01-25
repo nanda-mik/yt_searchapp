@@ -1,7 +1,7 @@
 # YT Search
 
-## Installation
-* Hope you have a python & pip installed on your device. If not, please install it.
+## Basic Installation
+* Asmming you have a python & pip installed on your device. If not, please install it.
 * After doing above, install virtualenv and create a virtual environment.
     ```bash
         $ pip install virtualenv
@@ -45,6 +45,16 @@
         ```bash
             $ python manage.py migrate
         ```
+    8. Apply fixture required for the project:
+        ```bash
+            python manage.py load_fixture
+        ```
+    9. Create superuser for admin.
+        ```bash
+            python manage.py createsuperuser
+        ```
+    9. Create Youtube creds: 
+        Refer below *API's & functionalities* section to know how to create creds in youtube store.
     8. To run server locally using the below command:
         ```bash
             $ python manage.py runserver
@@ -81,3 +91,31 @@
 
     Follow this to dockerize a simple django app:
     https://blog.logrocket.com/dockerizing-django-app/
+
+* ### Modules and api's
+    1. #### Models:
+        - VideoStore: Stores video data like titile, description, etc.
+        - LastPushDatetime: Stores last datetime till which data is pushed to store.
+        - YoutubeCreds: Stores multiple api keys with exhausted criteria.
+    2. #### Serializers & views:
+        - Serializer to validate data data before storing and for List API's
+        - View for video store to list with search and ordering support.
+    3. #### API's & functionalities:
+        - Admin endpoint: Login to admin using the superuser created earlier. This gives you a UI/dashboard to interact with your models by django.
+        ```bash
+            http://127.0.0.1:8000/admin
+        ```
+        - Use the above admin to create creds using api_name, key, service_name & version. This will be used to fetch videos from youtube.
+        - Background task: A periodic task runs in a 5minute interval which fetch videos from youtube and store it to our db based on query.
+        - List Video: This will list all videos in descending order of their published time with a pagination of page_size=10.
+        ```bash
+            http://127.0.0.1:8000/api/videos/
+        ```
+        - Search videos: Add query params for searching a particular content from title/description like this:
+        ```bash
+            http://127.0.0.1:8000/api/videos?q=hello
+        ```
+        This will search all videos whose title/description which contains hello.
+        It also supports partial search.
+
+* Hope this documentation will help you to run this project!!
