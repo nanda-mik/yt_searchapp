@@ -1,5 +1,4 @@
 import logging
-import os
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError, Error
@@ -15,14 +14,20 @@ logger = logging.getLogger(__name__)
 
 class Youtube:
     """
-    Class to setup youtube api integration related things.
+    Class to setup youtube api integration and its functionalities.
     """
 
     def __init__(self, query_str, query_dt, max_results=25):
         """
         Init method to setup youtube client.
         """
-        self.yt_cred = app_models.YoutubeCreds.objects.first()
+        self.yt_cred = app_models.YoutubeCreds.objects.filter(
+            is_exhausted=False
+        ).first()
+
+        if not self.yt_client:
+            raise app_exceptions.YoutubeException("Quota exceeded for all keys!!")
+
         self.api_key = self.yt_cred.api_key
         self.api_service_name = self.yt_cred.api_service_name
         self.api_version = self.yt_cred.api_version
@@ -49,15 +54,24 @@ class Youtube:
         try:
             search_result = self.yt_client.search().list(
                 q=self.query_str, 
-                part=app_constants.YT_PART,
+                part='ada',
                 type=query_type,
                 order=app_constants.YT_ORDER,
                 publishedAfter=self.query_dt,
                 relevanceLanguage=app_constants.YT_LANG,
                 maxResults = self.max_results
             ).execute()
-        except HttpError as exc:
-            raise app_exceptions.YoutubeException(f"Failed to search due to: {exc}")
+        except HttpError as error:
+            response = error.resp
+            message = error._get_reason()
+
+            if response.status == 403 and 'quotaExceeded' in message:
+                logger.error(f"Quota exhausted for this api key: {self.api_key.name}")
+                self.yt_cred.is_exhausted = True
+                self.yt_client.save()
+                return
+            else:
+                raise app_exceptions.YoutubeException(f"Failed to search due to: {message}")
         
         return search_result
 

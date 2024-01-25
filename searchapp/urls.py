@@ -5,7 +5,7 @@ from searchapp import views as app_views
 
 urlpatterns = [
     path(
-        'videos',
+        'videos/',
         app_views.VideoStoreListView.as_view(),
         name='list_video'
     )

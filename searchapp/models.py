@@ -3,7 +3,10 @@ from django.db import models
 
 class VideoStore(models.Model):
     """
-    Model to store videos.
+    Model to store youtube videos with fields like title, description,
+    publishat and thumbnails.
+    Further enhancement: May add type field to models to store videos according
+    to type and filter based on types(cricket, football,...etc)
     """
 
     _created_on = models.DateTimeField(
@@ -32,7 +35,8 @@ class VideoStore(models.Model):
 
 class LastPushDatetime(models.Model):
     """
-    Model to store last push_datetime to store from youtube.
+    Model to store last push_datetime. Datetime used to do a search
+    on youtube search api.
     """
 
     video_success_dt = models.DateTimeField(
@@ -52,7 +56,7 @@ class LastPushDatetime(models.Model):
 
 class YoutubeCreds(models.Model):
     """
-    Model to store youtube api key and creds
+    Model to store youtube API key and credentials.
     """
 
     name = models.CharField(
@@ -72,6 +76,10 @@ class YoutubeCreds(models.Model):
         max_length=20,
         default='v3',
         help_text='API version.'
+    )
+    is_exhausted = models.BooleanField(
+        default=False,
+        help_text="stores if quota is exceeded for the day."
     )
 
     def __str__(self) -> str:
