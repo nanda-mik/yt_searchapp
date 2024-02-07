@@ -159,7 +159,7 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_BEAT_SCHEDULE = {
     'fetch-and-store-videos': {
         'task': 'searchapp.tasks.fetch_and_store_yt_videos',
-        'schedule': crontab(minute="*/5") # Scheduling the task every minute interval.
+        'schedule': crontab(minute="*/1") # Scheduling the task every minute interval.
     }
 }
 

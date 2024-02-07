@@ -25,7 +25,7 @@ class Youtube:
             is_exhausted=False
         ).first()
 
-        if not self.yt_client:
+        if not self.yt_cred:
             raise app_exceptions.YoutubeException("Quota exceeded for all keys!!")
 
         self.api_key = self.yt_cred.api_key
@@ -54,7 +54,7 @@ class Youtube:
         try:
             search_result = self.yt_client.search().list(
                 q=self.query_str, 
-                part='ada',
+                part=app_constants.YT_PART,
                 type=query_type,
                 order=app_constants.YT_ORDER,
                 publishedAfter=self.query_dt,
